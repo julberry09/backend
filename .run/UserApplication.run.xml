@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="DB_HOST" value="mungta-user-db.mysql.database.azure.com" />
+      <env name="DB_PASSWORD" value="andxk12#$" />
+      <env name="DB_USERNAME" value="mungta" />
+      <env name="MAIL_PASSWORD" value="rkhiyqmmvznairiq" />
+      <env name="MAIL_USERNAME" value="mungtaservice@gmail.com" />
+    </envs>
+    <module name="user" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.mungta.user.UserApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
