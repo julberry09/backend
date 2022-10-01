@@ -1,2 +1,110 @@
 server:
   port: 8081
+
+spring:
+  profiles:
+    activate: local
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create  #안먹음
+    properties:
+      hibernate:
+        hbm2ddl.auto: create
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL57Dialect
+  datasource:
+    jdbc-url: jdbc:mysql://localhost:3306/
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+###################################################################
+#   datasource:
+#     jdbc-url: jdbc:mysql://${DB_HOST}:3306/user_dev?serverTimezone=Asia/Seoul&validationQuery="select 1"
+#     username: ${DB_USERNAME}
+#     password: ${DB_PASSWORD}
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     hikari:
+#       auto-commit: false
+#       connection-test-query: SELECT 1
+#       maximum-pool-size: 20
+#       transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+#       pool-name: mungta-user
+#   jpa:
+# #    hibernate:
+# #      ddl-auto: update
+#     properties:
+#       hibernate:
+#         # hbm2ddl.auto: create
+#         format_sql: true
+#         temp:
+#           use_jdbc_metadata_defaults: false
+#     # generate-ddl: true
+#     show-sql: true
+#     database-platform: org.hibernate.dialect.MySQL8InnoDBDialect
+###################################################################
+#  jpa:
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+###################################################################
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+        bindings:
+          producer-out-0:
+            producer:
+              configuration:
+                key:
+                  serializer: org.apache.kafka.common.serialization.StringSerializer
+          consumer-in-0:
+            consumer:
+              configuration:
+                key:
+                  deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      bindings:
+        producer-out-0:
+          destination: user-topic
+          contentType: application/json
+        consumer-in-0:
+          destination: accusation-topic
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      # location: ${user.dir}/img
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+# logging:
+#   config: classpath:logging/logback-mungta.xml
+#   level:
+#     org:
+#       hibernate:
+#         SQL: DEBUG
+#         type:
+#           descriptor:
+#             sql: TRACE
